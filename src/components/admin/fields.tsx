@@ -270,7 +270,7 @@ export function FieldRenderer({
               className={cn("relative h-6 w-11 shrink-0 rounded-full transition-colors", value ? "bg-accent" : "bg-muted/30")}
               aria-pressed={Boolean(value)}
             >
-              <span className={cn("absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform", value ? "translate-x-5" : "translate-x-0.5")} />
+              <span className={cn("absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform", value ? "translate-x-5" : "translate-x-0")} />
             </button>
           </label>
           {field.help ? <p className="mt-2 text-xs text-muted">{field.help}</p> : null}

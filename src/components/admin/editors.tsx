@@ -296,7 +296,7 @@ export function PageEditor({ pageKey, title, description, sectionGroups }: PageE
               className={cn("relative h-6 w-11 rounded-full transition-colors", page.published ? "bg-accent" : "bg-muted/30")}
               aria-pressed={page.published}
             >
-              <span className={cn("absolute top-0.5 h-5 w-5 rounded-full bg-white transition-transform", page.published ? "translate-x-5" : "translate-x-0.5")} />
+              <span className={cn("absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition-transform", page.published ? "translate-x-5" : "translate-x-0")} />
             </button>
           </label>
         </div>

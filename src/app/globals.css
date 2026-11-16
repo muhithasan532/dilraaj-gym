@@ -171,9 +171,11 @@
     display: inline-flex;
     align-items: center;
     gap: 0.65rem;
-    font-size: 0.7rem;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.28em;
+    line-height: 1.2;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent-soft);
   }
@@ -187,7 +189,17 @@
   }
 
   html[lang="bn"] .eyebrow {
+    font-family: var(--font-bangla);
     letter-spacing: 0.08em;
+  }
+
+  /* Accent bands are solid red, so the default red eyebrow would disappear. */
+  .eyebrow.on-accent {
+    color: #fff;
+  }
+
+  .eyebrow.on-accent::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85));
   }
 
   .display-xl {

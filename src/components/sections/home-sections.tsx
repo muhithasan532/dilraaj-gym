@@ -7,6 +7,7 @@ import { BenefitCard, PlanCard, ProgramCard, ScheduleTable, TestimonialCard, Tra
 import { Reveal } from "@/components/common/reveal";
 import { SectionHeading, SmartImage } from "@/components/common/ui";
 import { useSite } from "@/components/providers/site-provider";
+import { cn } from "@/lib/utils";
 import { telLink } from "@/lib/whatsapp";
 
 const benefitIcons = [<UserCheck key="1" className="h-5 w-5" />, <Dumbbell key="2" className="h-5 w-5" />, <Compass key="3" className="h-5 w-5" />, <HeartHandshake key="4" className="h-5 w-5" />];
@@ -32,7 +33,7 @@ export function PhilosophySection() {
           <div className="mt-10 grid gap-4 border-t border-line pt-8 sm:grid-cols-2">
             {[content.pages.about.sections.mission, content.pages.about.sections.vision].map((block) => (
               <div key={block?.key}>
-                <p className="text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-accent-soft">{t(block?.eyebrow)}</p>
+                <p className="text-[0.72rem] font-semibold uppercase leading-[1.2] tracking-[0.2em] text-accent-soft">{t(block?.eyebrow)}</p>
                 <p className="mt-2 text-sm leading-relaxed text-muted">{t(block?.title)}</p>
               </div>
             ))}
@@ -382,49 +383,89 @@ export function FinalCtaSection({ pageKey = "home", title, body, label, tone = "
   const copy = body ?? t(section?.body);
   const cta = label ?? t(section?.primaryCtaLabel);
 
+  // The accent tone paints the whole band red, so every foreground element
+  // switches to white/light — a red-on-red button or grey-on-red copy would be
+  // unreadable.
+  const onAccent = tone === "accent";
+
   return (
     <section className="relative overflow-hidden">
-      <div className={tone === "accent" ? "bg-accent" : "bg-[#0B0B0B]"}>
+      <div className={onAccent ? "bg-accent" : "bg-[#0B0B0B]"}>
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(212,59,63,0.35),transparent_65%)] blur-2xl" />
+          <div
+            className={cn(
+              "absolute left-1/2 top-1/2 h-[30rem] w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-2xl",
+              onAccent
+                ? "bg-[radial-gradient(circle,rgba(0,0,0,0.22),transparent_65%)]"
+                : "bg-[radial-gradient(circle,rgba(212,59,63,0.35),transparent_65%)]"
+            )}
+          />
         </div>
         <div className="shell relative py-20 text-center md:py-28">
           <Reveal>
-            <span className="eyebrow justify-center">
+            <span className={cn("eyebrow justify-center", onAccent && "on-accent")}>
               <Sparkles className="h-3.5 w-3.5" />
               {t(content.settings.tagline)}
             </span>
             <h2 className="display-lg mx-auto mt-6 max-w-3xl text-balance text-[#F6F3EF]">{heading}</h2>
-            <p className="mx-auto mt-5 max-w-xl text-sm leading-relaxed text-[#AAA6A1] md:text-base">{copy}</p>
+            <p
+              className={cn(
+                "mx-auto mt-5 max-w-xl text-sm leading-relaxed md:text-base",
+                onAccent ? "text-white/85" : "text-[#AAA6A1]"
+              )}
+            >
+              {copy}
+            </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               {href ? (
-                <a href={href} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cn("btn", onAccent ? "bg-white text-[#B9272D] hover:bg-[#F6F3EF]" : "btn-primary")}
+                >
                   <MessageCircle className="h-4 w-4" />
                   {cta}
                 </a>
               ) : (
                 <span
-                  className="btn btn-primary cursor-help"
+                  className={cn("btn cursor-help", onAccent ? "bg-white text-[#B9272D] hover:bg-[#F6F3EF]" : "btn-primary")}
                   title="Add the WhatsApp number in Admin → WhatsApp & Contact to enable this button."
                 >
                   <MessageCircle className="h-4 w-4" />
                   {cta}
                 </span>
               )}
-              <Link href="/membership" className="btn border border-white/20 bg-white/5 text-[#F6F3EF]">
+              <Link
+                href="/membership"
+                className={cn(
+                  "btn text-[#F6F3EF]",
+                  onAccent ? "border border-white/45 bg-white/10" : "border border-white/20 bg-white/5"
+                )}
+              >
                 {t(content.header.ctaLabel)}
               </Link>
             </div>
             {!href ? (
-              <p className="mx-auto mt-5 max-w-md text-[0.7rem] leading-relaxed text-[#AAA6A1]">
+              <p
+                className={cn(
+                  "mx-auto mt-5 max-w-md text-[0.7rem] leading-relaxed",
+                  onAccent ? "text-white/80" : "text-[#AAA6A1]"
+                )}
+              >
                 WhatsApp number not configured yet — add it in Admin → WhatsApp &amp; Contact and this button will open a
                 chat instantly.
               </p>
             ) : null}
-            <ul className="mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.68rem] uppercase tracking-[0.18em] text-[#AAA6A1]">
+            <ul
+              className={cn(
+                "mx-auto mt-12 flex max-w-2xl flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[0.68rem] uppercase tracking-[0.18em]",
+                onAccent ? "text-white/80" : "text-[#AAA6A1]"
+              )}
+            >
               {["No pressure sales", "Free floor tour", "Coaching included"].map((item) => (
                 <li key={item} className="flex items-center gap-2">
-                  <Check className="h-3.5 w-3.5 text-[#D43B3F]" />
+                  <Check className={cn("h-3.5 w-3.5", onAccent ? "text-white" : "text-[#D43B3F]")} />
                   {item}
                 </li>
               ))}

@@ -57,7 +57,7 @@ export function SiteHeader() {
           !scrolled && !open
             ? ({
                 "--text": "#F6F3EF",
-                "--muted": "#AAA6A1",
+                "--muted": "#E4DFD9",
                 "--border": "rgba(246,243,239,0.16)",
                 "--card": "#202020",
                 "--surface": "#171717",
@@ -94,7 +94,7 @@ export function SiteHeader() {
           </Link>
 
           {/* Desktop navigation */}
-          <nav className="hidden items-center gap-9 lg:flex" aria-label="Primary">
+          <nav className="hidden items-center gap-9 xl:flex" aria-label="Primary">
             {nav.map((item) => (
               <Link
                 key={item.id}
@@ -145,7 +145,7 @@ export function SiteHeader() {
               onClick={() => setOpen(true)}
               aria-label="Open navigation"
               aria-expanded={open}
-              className="grid h-10 w-10 place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent lg:hidden"
+              className="grid h-10 w-10 place-items-center rounded-full border border-line text-ink transition-colors hover:border-accent xl:hidden"
             >
               <Menu className="h-5 w-5" />
             </button>
@@ -157,7 +157,7 @@ export function SiteHeader() {
       <AnimatePresence>
         {open ? (
           <motion.div
-            className="fixed inset-0 z-[60] lg:hidden"
+            className="fixed inset-0 z-[60] xl:hidden"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

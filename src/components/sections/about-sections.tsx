@@ -181,5 +181,5 @@ export function WhyChooseUs() {
 }
 
 export function AboutCta() {
-  return <FinalCtaSection pageKey="about" tone="accent" />;
+  return <FinalCtaSection pageKey="about" />;
 }
